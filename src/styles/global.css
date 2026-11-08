@@ -1,0 +1,205 @@
+:root {
+  --paper: #f3eee4;
+  --paper-2: #ebe3d4;
+  --paper-3: #e2d8c6;
+  --card: #fffdf8;
+  --ink: #1b1a2e;
+  --ink-2: #39374e;
+  --muted: #6d6778;
+  --line: #d9cfbd;
+  --vermillion: #ff5a36;
+  --vermillion-ink: #c23a1c;
+  --ok: #24935f;
+  --ok-soft: #dcf3e6;
+  --warn: #d9772e;
+  --warn-soft: #fbe9d8;
+  --accent: var(--vermillion);
+  --accent-ink: var(--vermillion-ink);
+  --accent-soft: #fde3da;
+  --font-display: 'Prompt', 'Sarabun', 'Thonburi', 'Noto Sans Thai', system-ui, sans-serif;
+  --font-body: 'Sarabun', 'Prompt', 'Thonburi', 'Noto Sans Thai', system-ui, sans-serif;
+  --font-math: 'Iowan Old Style', 'Times New Roman', 'Georgia', serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  overscroll-behavior: none;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+svg {
+  display: block;
+}
+
+.math {
+  font-family: var(--font-math);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* Viewport & scaled stage                                             */
+/* ------------------------------------------------------------------ */
+
+.viewport {
+  position: fixed;
+  inset: 0;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background:
+    radial-gradient(1200px 700px at 20% 0%, #f8f4ec 0%, transparent 60%),
+    var(--paper);
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50%;
+  overflow: hidden;
+  background: var(--paper);
+  contain: layout paint;
+}
+
+.stage-inner {
+  position: absolute;
+  inset: 0;
+}
+
+/* paper grain — tiny inline SVG noise, tiled */
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+[data-enter] {
+  visibility: hidden;
+}
+.reduced [data-enter] {
+  visibility: visible;
+}
+
+/* kinetic text: masked words (padding keeps Thai upper/lower marks unclipped) */
+.kt .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0.2em 0.03em 0.16em;
+  margin: -0.2em -0.03em -0.16em;
+}
+.kt .w > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/* Rotate prompt (portrait)                                            */
+/* ------------------------------------------------------------------ */
+
+.rotate-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 40px;
+  text-align: center;
+  background: var(--ink);
+  color: var(--paper);
+}
+.rotate-prompt h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 30px;
+}
+.rotate-prompt p {
+  max-width: 420px;
+  font-size: 19px;
+  line-height: 1.55;
+  opacity: 0.8;
+}
+.rotate-device {
+  width: 90px;
+  height: 130px;
+  border: 5px solid var(--paper);
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  animation: rotate-hint 2.6s var(--ease-out) infinite;
+}
+.rotate-screen svg {
+  width: 52px;
+  color: var(--paper);
+}
+@keyframes rotate-hint {
+  0%,
+  25% {
+    transform: rotate(0deg);
+  }
+  55%,
+  85% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotate-device {
+    animation: none;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}

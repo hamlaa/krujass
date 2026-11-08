@@ -1,0 +1,27 @@
+# keep the build context small and free of anything secret
+node_modules
+dist
+coverage
+.git
+.gitignore
+.vscode
+.idea
+*.log
+.DS_Store
+
+# secrets / local configuration must never reach an image
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets
+**/secrets
+**/*credentials*
+**/*service-account*.json
+
+# development-only tooling and generated output
+scripts
+README.md
+compose.yaml

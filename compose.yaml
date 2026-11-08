@@ -1,0 +1,14 @@
+# Start manually:  docker compose up -d --build
+# Then open:       http://<this-computer's-LAN-IP>:${PORT:-8080}
+services:
+  presentation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: work-physics-presentation:latest
+    container_name: work-physics-presentation
+    ports:
+      - "${PORT:-8080}:80"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
