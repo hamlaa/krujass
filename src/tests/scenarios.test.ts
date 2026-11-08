@@ -23,7 +23,7 @@ describe('scenario content', () => {
     expect(CHOICE_ORDER).toEqual(['work', 'noWork']);
     expect(CHOICE_LABEL.work).toBe('เกิดงาน');
     expect(CHOICE_LABEL.noWork).toBe('ไม่เกิดงาน');
-    expect(QUESTION).toBe('การกระทำในสถานการณ์นี้เกิดงานทางฟิสิกส์หรือไม่?');
+    expect(QUESTION).toBe('การกระทำในสถานการณ์นี้เกิดงานทางวิทยาศาสตร์หรือไม่?');
   });
 
   it('explanations start with the verdict that matches the correct answer', () => {

@@ -13,7 +13,7 @@ export const CHOICE_LABEL: Record<Choice, string> = {
 /** Fixed button order. Labels are never shuffled. */
 export const CHOICE_ORDER: readonly Choice[] = ['work', 'noWork'] as const;
 
-export const QUESTION = 'การกระทำในสถานการณ์นี้เกิดงานทางฟิสิกส์หรือไม่?';
+export const QUESTION = 'การกระทำในสถานการณ์นี้เกิดงานทางวิทยาศาสตร์หรือไม่?';
 
 export type SceneId = 'cart' | 'worker' | 'desk' | 'stairs' | 'suitcase' | 'wardrobe';
 export type TransitionKind = 'cart' | 'beam' | 'window' | 'stairs' | 'travel' | 'doors' | 'recap';

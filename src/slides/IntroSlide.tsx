@@ -13,7 +13,7 @@ function VectorHero({ reduced }: { reduced: boolean }) {
     const svg = ref.current!;
     const q = (s: string) => svg.querySelector(s) as SVGElement;
     const F = q('.vh-f'), Fh = q('.vh-fh'), drop = q('.vh-drop'), arc = q('.vh-arc'), headF = q('.vh-headf'), headH = q('.vh-headh');
-    const thT = q('.vh-th'), cosT = q('.vh-cos'), wT = q('.vh-w');
+    const wT = q('.vh-w');
     const O = { x: 190, y: 250 };
     const L = 230;
     const st = { th: 37 };
@@ -31,8 +31,6 @@ function VectorHero({ reduced }: { reduced: boolean }) {
       const r = 62;
       arc.setAttribute('d', `M${O.x + r},${O.y} A${r},${r} 0 0 0 ${O.x + r * Math.cos(a)},${O.y - r * Math.sin(a)}`);
       const c = Math.cos(a);
-      thT.textContent = `${Math.round(st.th)}°`;
-      cosT.textContent = c.toFixed(2);
       wT.textContent = c > 0.02 ? 'W > 0' : 'W = 0';
       wT.setAttribute('class', `vh-w ${c > 0.02 ? 'pos' : 'zero'}`);
     };
@@ -74,10 +72,6 @@ function VectorHero({ reduced }: { reduced: boolean }) {
       <text x="310" y="398" className="vh-label" textAnchor="middle">การกระจัด s</text>
       <text x="420" y="60" className="vh-label vh-flabel">แรง F</text>
       <g className="vh-read" transform="translate(22 64)">
-        {/* <text className="vh-k" y="0">θ</text> */}
-        <text className="vh-th vh-v" x="34" y="0">37°</text>
-        {/* <text className="vh-k" y="44">cosθ</text> */}
-        {/* <text className="vh-cos vh-v" x="80" y="44">0.80</text> */}
         <text className="vh-w pos" y="96">W &gt; 0</text>
       </g>
     </svg>
