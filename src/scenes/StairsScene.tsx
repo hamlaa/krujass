@@ -170,7 +170,7 @@ function Art() {
           <line className="phys-line" data-dash="3 10" x1={410} y1={LV[3]} x2={612} y2={LV[3]} stroke="#363894" strokeWidth={3} />
           <Arrow x1={598} y1={GROUND - 4} x2={598} y2={LV[3] + 4} color="#363894" width={5} head={15} label="h" lx={580} ly={LV[3] + 34} anchor="end" />
           <Label x={262} y={LV[3] + 54} text="ตัวสูงขึ้น h (การกระจัดขึ้น)" color="#363894" size={19} />
-          <Arrow x1={428} y1={LV[3] - 80} x2={428} y2={LV[3] - 186} color="#e2412b" label="F (แรงยกตัว)" lx={470} ly={LV[3] - 210} />
+          <Arrow x1={428} y1={LV[3] - 80} x2={428} y2={LV[3] - 186} color="#e2412b" label="F (แรง)" lx={470} ly={LV[3] - 210} />
           <Arrow x1={318} y1={LV[3] - 120} x2={318} y2={LV[3] - 62} color="#8a8478" width={4} head={13} label="mg" lx={288} ly={LV[3] - 96} labelSize={18} anchor="end" />
         </g>
       </g>

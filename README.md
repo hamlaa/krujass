@@ -1,4 +1,4 @@
-# งานในทางฟิสิกส์ (Work in physics): an interactive presentation
+# งานในทางวิทยาศาสตร์ (Work in physics): an interactive presentation
 
 This is a cinematic, touch-first lesson for Thai high-school physics (ม.4–ม.6).
 It covers six situations, and in each one the student watches an animated

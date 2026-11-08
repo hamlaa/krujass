@@ -118,7 +118,7 @@ export function IntroSlide({ onStart, reduced }: { onStart: () => void; reduced:
         <div className="intro-card">
           <div className="intro-formula">
             <span className="math">W</span> = <span className="math">F</span>
-            <span className="math">s</span> cos<span className="math">θ</span>
+            <span className="math">s</span>
           </div>
           <VectorHero reduced={reduced} />
         </div>

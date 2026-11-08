@@ -22,7 +22,7 @@ const TOTAL = N + 2;
 const KIND_INTO: TransitionKind[] = ['home', ...SCENARIOS.map((s) => s.transitionIn), 'recap'];
 
 function labelFor(i: number): TransitionLabel {
-  if (i === 0) return { title: INTRO.title, kicker: 'W = Fs cosθ', accent: '#ff5a36' };
+  if (i === 0) return { title: INTRO.title, kicker: 'W = Fs', accent: '#ff5a36' };
   if (i === SUMMARY_INDEX) return { title: SUMMARY.title.replace('สรุป: ', ''), kicker: 'สรุปบทเรียน', accent: '#ff5a36' };
   const s = SCENARIOS[i - 1];
   return { num: s.number, title: s.title, kicker: 'สถานการณ์', accent: s.accent };
@@ -144,7 +144,7 @@ export default function App() {
         case '2':
           if (scene && scene.phase === 'ready') {
             sfx.select();
-            d({ type: 'ANSWER', choice: CHOICE_ORDER[Number(e.key) - 1] });
+            d({ type: 'ANSWER', choice: CHOICE_ORDER[Number(e.key) - 1], correct: SCENARIOS[i - 1].correct });
           }
           break;
         case 'Escape':

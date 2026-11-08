@@ -3,7 +3,7 @@ import { Rig, ik2, setWorldAngle, lerp, smooth, clamp, DEG } from '../rig/bone';
 import { footAt, bobAt, contactsBetween } from '../rig/gait';
 import { createRuntime, DustPool } from '../rig/runtime';
 import { sfx, panAt, type LoopVoice } from '../audio/soundEngine';
-import { Arrow, Ground, Label, StartMarker, GROUND, type SceneModule } from './common';
+import { Arrow, Ground, StartMarker, GROUND, type SceneModule } from './common';
 
 /*
  * Scene 1 — cute flat 2D cartoon: boy in a green tee pushing a loaded
@@ -230,7 +230,6 @@ function Art({ uid }: { uid: string }) {
         <g className="phys">
           <Arrow x1={FINAL_CX + 122} y1={300} x2={FINAL_CX - 6} y2={300} color="#e2412b" label="F (แรงเข็น)" lx={FINAL_CX - 24} ly={300} anchor="end" />
           <Arrow x1={CX0 - 136 * CART_S} y1={GROUND + 84} x2={FINAL_CX - 136 * CART_S} y2={GROUND + 84} color="#1f6b2a" label="s (การกระจัด)" ly={GROUND + 118} />
-          <Label x={FINAL_CX - 10} y={232} text="θ = 0°  →  W > 0" color="#1b1a2e" />
         </g>
       </g>
     </>

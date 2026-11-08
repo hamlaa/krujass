@@ -1,6 +1,6 @@
 {
-  "name": "งานในทางฟิสิกส์",
-  "short_name": "งานฟิสิกส์",
+  "name": "งานในทางวิทยาศาสตร์",
+  "short_name": "งานวิทยาศาสตร์",
   "start_url": "./",
   "display": "fullscreen",
   "orientation": "landscape",

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { CHOICE_LABEL, CHOICE_ORDER, QUESTION, SCENARIOS, type Choice, type Scenario } from '../data/scenarios';
 import type { SceneAction, SceneState } from '../state/sceneMachine';
@@ -8,6 +8,7 @@ import type { RigHandle } from '../rig/runtime';
 import { AnimatedButton } from '../components/AnimatedButton';
 import { AnswerFeedback } from '../components/AnswerFeedback';
 import { KineticText } from '../components/KineticText';
+import { WrongPopup } from '../components/WrongPopup';
 import { NextButton } from '../components/NextButton';
 import { Icon } from '../components/Icon';
 import { enter } from '../animations/motionPresets';
@@ -84,9 +85,18 @@ export function SceneSlide({ scenario, state, dispatch, onNext, isLast, reduced 
     if (state.phase === 'answered' && prev === 'playing') rig.current?.setPhysics(true, true);
   }, [state.phase, state.choice, scenario.correct, reduced]);
 
+  // wrong pick: just the buzzer, no explanation
+  const wrongCount = useRef(state.wrong.length);
+  const [wrongPop, setWrongPop] = useState(0); // 0 = hidden, else the wrong-count that triggered it
+  useEffect(() => {
+    if (state.wrong.length > wrongCount.current) sfx.incorrect();
+    if (state.wrong.length > wrongCount.current) setWrongPop(state.wrong.length);
+    wrongCount.current = state.wrong.length;
+  }, [state.wrong.length]);
+
   const onComplete = useCallback(() => dispatch({ type: 'PLAY_DONE', token: tokenRef.current }), [dispatch]);
   const play = () => dispatch({ type: 'PLAY' });
-  const answer = (c: Choice) => dispatch({ type: 'ANSWER', choice: c });
+  const answer = (c: Choice) => dispatch({ type: 'ANSWER', choice: c, correct: scenario.correct });
 
   const playing = state.phase === 'playing';
   const showAnswers = state.completed;
@@ -151,18 +161,25 @@ export function SceneSlide({ scenario, state, dispatch, onNext, isLast, reduced 
                     <div className="answers-label">{answered ? 'คำตอบ' : 'เลือกคำตอบ'}</div>
                     <div className="answers-row">
                       {CHOICE_ORDER.map((c) => {
-                        const isPick = state.choice === c;
+                        const isWrong = state.wrong.includes(c);
+                        const isPick = state.choice === c || isWrong;
                         const isRight = answered && scenario.correct === c;
                         return (
                           <AnimatedButton
                             key={c}
                             sound="select"
-                            className={`answer-btn answer-${c} ${isPick ? 'is-picked' : ''} ${isRight ? 'is-right' : ''} ${answered && !isRight ? 'is-dim' : ''}`}
-                            disabled={answered || playing}
+                            className={`answer-btn answer-${c} ${isPick ? 'is-picked' : ''} ${isWrong ? 'is-wrong' : ''} ${isRight ? 'is-right' : ''} ${answered && !isRight ? 'is-dim' : ''}`}
+                            disabled={answered || playing || isWrong}
                             aria-pressed={isPick}
                             onClick={() => answer(c)}
                           >
                             <span className="answer-text">{CHOICE_LABEL[c]}</span>
+                            {isWrong && (
+                              <span className="answer-wrong" role="img" aria-label="ผิด">
+                                <Icon name="close" size={22} stroke={3.4} />
+                                ผิด
+                              </span>
+                            )}
                             {isRight && (
                               <span className="answer-mark" aria-label="คำตอบที่ถูกต้อง">
                                 <Icon name="check" size={24} stroke={3.4} />
@@ -183,6 +200,8 @@ export function SceneSlide({ scenario, state, dispatch, onNext, isLast, reduced 
             </>
           )}
         </div>
+
+        {wrongPop > 0 && <WrongPopup key={wrongPop} reduced={reduced} onDone={() => setWrongPop(0)} />}
 
         <footer className="scene-foot">
           <NextButton primary={answered} onClick={onNext} label={isLast ? 'ไปหน้าสรุป' : 'ถัดไป'} />

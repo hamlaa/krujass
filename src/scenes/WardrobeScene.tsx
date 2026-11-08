@@ -204,9 +204,9 @@ function Art({ uid }: { uid: string }) {
       </g>
 
       <g className="phys">
-        <Arrow x1={640} y1={244} x2={WR + 26} y2={244} color="#e2412b" label="F (แรงผลัก)" lx={600} ly={212} />
+        <Arrow x1={640} y1={244} x2={WR + 26} y2={244} color="#e2412b" label="F (แรง)" lx={600} ly={212} />
         <circle className="phys-head" cx={WL} cy={GROUND + 30} r={9} fill="#5e3313" />
-        <Label x={(WL + WR) / 2} y={GROUND - 88} text="s = 0  (ตู้ไม่เลื่อนที่)" color="#5e3313" filled />
+        <Label x={(WL + WR) / 2} y={GROUND - 88} text="s = 0  (ตู้ไม่เคลื่อนที่)" color="#5e3313" filled />
         <Label x={(WL + WR) / 2 + 40} y={142} text="W = F × 0 = 0" color="#1b1a2e" />
       </g>
     </>

@@ -46,8 +46,8 @@ describe('scenario content', () => {
   });
 
   it('summary carries the principle and message', () => {
-    expect(SUMMARY.title).toBe('สรุป: งานในทางฟิสิกส์');
-    expect(SUMMARY.principle).toBe('W = Fs cosθ');
+    expect(SUMMARY.title).toBe('สรุป: งานในทางวิทยาศาสตร์');
+    expect(SUMMARY.principle).toBe('W = Fs');
     expect(SUMMARY.message).toBe('มีแรงอย่างเดียวไม่พอ ต้องพิจารณาการกระจัดและทิศทางของแรงด้วย');
   });
 });

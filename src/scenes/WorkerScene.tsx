@@ -166,7 +166,7 @@ function Art({ uid }: { uid: string }) {
           <line className="phys-line" data-dash="3 11" x1={WX0 + 4 + TIP.x} y1={BEAM_Y + TIP.y} x2={FINAL_X + 4 + TIP.x} y2={BEAM_Y + TIP.y} stroke="#8a5a00" strokeWidth={3.5} strokeLinecap="round" />
           <circle className="phys-head" cx={WX0 + 4 + TIP.x} cy={BEAM_Y + TIP.y} r={6} fill="#8a5a00" />
           <Label x={FINAL_X + 4 + TIP.x + 150} y={BEAM_Y + TIP.y + 34} text="ปลายไม้เคลื่อนที่ในแนวระดับ ความสูงคงที่" color="#8a5a00" size={19} />
-          <Arrow x1={O.x} y1={O.y} x2={O.x} y2={O.y - 120} color="#2563c9" label="F (แรงพยุง)" lx={O.x} ly={O.y - 150} />
+          <Arrow x1={O.x} y1={O.y} x2={O.x} y2={O.y - 120} color="#2563c9" label="F (แรง)" lx={O.x} ly={O.y - 150} />
           <Arrow x1={O.x} y1={O.y} x2={O.x - 110} y2={O.y} color="#1f7a3d" label="s" lx={O.x - 136} ly={O.y} />
           <path className="phys-line" d={`M${O.x - 22},${O.y} L${O.x - 22},${O.y - 22} L${O.x},${O.y - 22}`} stroke="#1b1a2e" strokeWidth={3} fill="none" />
           <Label x={O.x - 74} y={O.y - 56} text="θ = 90°" color="#1b1a2e" />

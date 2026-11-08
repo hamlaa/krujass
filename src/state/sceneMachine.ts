@@ -15,6 +15,8 @@ export interface SceneState {
   /** True once the main animation has been watched to the end at least once. */
   completed: boolean;
   feedbackOpen: boolean;
+  /** Wrong picks so far: no explanation is shown, the player may pick again. */
+  wrong: Choice[];
   /** Monotonic counter, bumps on every accepted PLAY so views can restart timelines. */
   playToken: number;
 }
@@ -24,13 +26,15 @@ export const initialSceneState = (): SceneState => ({
   choice: null,
   completed: false,
   feedbackOpen: false,
+  wrong: [],
   playToken: 0,
 });
 
 export type SceneAction =
   | { type: 'PLAY' }
   | { type: 'PLAY_DONE'; token: number }
-  | { type: 'ANSWER'; choice: Choice }
+  /** `correct` (when given) lets the machine reject a wrong pick without locking the scene. */
+  | { type: 'ANSWER'; choice: Choice; correct?: Choice }
   | { type: 'OPEN_FEEDBACK' }
   | { type: 'CLOSE_FEEDBACK' }
   | { type: 'LEAVE' };
@@ -48,6 +52,11 @@ export function sceneReducer(s: SceneState, a: SceneAction): SceneState {
 
     case 'ANSWER':
       if (s.phase !== 'ready' || s.choice) return s; // no answering mid-play or twice
+      if (a.correct && a.choice !== a.correct) {
+        // wrong: stay in `ready`, no feedback, let the player try again
+        if (s.wrong.includes(a.choice)) return s;
+        return { ...s, wrong: [...s.wrong, a.choice] };
+      }
       return { ...s, phase: 'answered', choice: a.choice, feedbackOpen: true };
 
     case 'OPEN_FEEDBACK':

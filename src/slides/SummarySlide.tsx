@@ -63,7 +63,7 @@ export function SummarySlide({ onRestart, reduced }: { onRestart: () => void; re
       <footer className="sum-foot" data-enter data-at="1.1">
         <div className="sum-principle">
           <span className="math">W</span> = <span className="math">F</span>
-          <span className="math">s</span> cos<span className="math">θ</span>
+          <span className="math">s</span>
         </div>
         <p className="sum-message">“{SUMMARY.message}”</p>
         <AnimatedButton
